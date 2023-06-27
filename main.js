@@ -8,7 +8,7 @@ $(document).ready(function() {
     var show = document.getElementById('show');
 
     function getData() {
-        Papa.parse('https://tomiiha.github.io/language_flashcards/data.csv', {
+        Papa.parse('https://YOUR_USERNAME.github.io/language_flashcards/data.csv', {
             download: true,
             header: true,
             complete: function(results) {
@@ -42,8 +42,12 @@ $(document).ready(function() {
 
     function showCardBack() {
         if(data && data[currentCard]) {
-            cardBack.find('p').first().text(data[currentCard].Back);
-            note.textContent = 'Note: ' + data[currentCard].Note;
+            if(data[currentCard].Back && data[currentCard].Note){
+                cardBack.find('p').first().text(data[currentCard].Back);
+                note.textContent = 'Note: ' + data[currentCard].Note;
+            }else{
+                console.log("Error: Back or Note data is not available for currentCard index " + currentCard);
+            }
         } else {
             console.log("Error: data is not available or currentCard index is out of range.");
         }
