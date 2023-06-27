@@ -76,15 +76,4 @@ button {
     background-color: #575761;
     color: white;
     cursor: pointer;
-    font-size: 1em;
-}
-
-button#show {
-    background-color: #D7263D;
-}
-
-#note {
-    font-size: 0.8em;
-    margin-top: 20px;
-    text-align: center;
-}
+    font-size
