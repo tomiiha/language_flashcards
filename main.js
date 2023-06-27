@@ -43,7 +43,7 @@ $(document).ready(function() {
     function showCardBack() {
         console.log("currentCard:", currentCard); 
     
-        if (currentCard['Back'] && currentCard['Back'].trim().length > 0) {
+        if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
             flashcardContainer.innerHTML = currentCard['Back'];
         } else {
             throw new Error("Back data is not available for currentCard.");
