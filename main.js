@@ -1,10 +1,9 @@
 var currentCard;
-var currentCardIndex;
-
-var flashcardContainer = document.querySelector('#flashcard-container');
-var showAnswerButton = document.querySelector('#show-answer');
-var previousButton = document.querySelector('#previous');
-var nextButton = document.querySelector('#next');
+var currentCardIndex = 0;
+var flashcardContainer;
+var showAnswerButton;
+var previousButton;
+var nextButton;
 var flashcardsData = [];
 
 function showCardFront(index) {
@@ -13,14 +12,15 @@ function showCardFront(index) {
     currentCardIndex = index;
     console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
-    flashcardContainer.innerHTML = currentCard['Front'];
+    flashcardContainer.querySelector('.card-front p').textContent = currentCard['Front'];
 }
 
 function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        flashcardContainer.innerHTML = currentCard['Back'];
+        flashcardContainer.querySelector('.card-back p').textContent = currentCard['Back'];
+        flashcardContainer.querySelector('#note').textContent = currentCard['Note'];
     } else {
         throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
     }
@@ -44,8 +44,13 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', (event) => {
+    flashcardContainer = document.querySelector('.card');
+    showAnswerButton = document.querySelector('#show-answer');
+    previousButton = document.querySelector('#prev');
+    nextButton = document.querySelector('#next');
+
+    // Event listeners
     showAnswerButton.addEventListener('click', showCardBack);
     previousButton.addEventListener('click', showPreviousCard);
     nextButton.addEventListener('click', showNextCard);
@@ -56,5 +61,5 @@ $.get('./data.csv', function(data) {
     var results = Papa.parse(data, {header: true});
     flashcardsData = results['data'];
     flashcardsData = shuffle(flashcardsData);
-    showCardFront(0); // We can call this with 0 since we're starting at the first card
+    showCardFront(0);
 });
