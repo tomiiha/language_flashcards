@@ -19,8 +19,10 @@ function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        flashcardContainer.querySelector('.card-back p').textContent = currentCard['Back'];
-        flashcardContainer.querySelector('#note').textContent = currentCard['Note'];
+        setTimeout(function () {
+            flashcardContainer.querySelector('.card-back p').textContent = currentCard['Back'];
+            flashcardContainer.querySelector('#note').textContent = currentCard['Note'];
+        }, 10); // Delay of 10 milliseconds
     } else {
         throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
     }
