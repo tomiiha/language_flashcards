@@ -8,7 +8,7 @@ $(document).ready(function() {
     var show = document.getElementById('show');
 
     function getData() {
-        Papa.parse('data.csv', {
+        Papa.parse('https://tomiiha.github.io/language_flashcards/data.csv', {
             download: true,
             header: true,
             complete: function(results) {
