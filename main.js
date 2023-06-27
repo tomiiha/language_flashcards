@@ -3,7 +3,7 @@ let flashcards = [];
 let currentCard = 0;
 
 // URL of the published Google Sheet CSV
-const csvUrl = 'PASTE_THE_LINK_HERE'; // Replace this with your Google Sheets link
+const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR8AaBycR0DAZyg2ejm9KpgXFxf9YUVNO78t7m1E5SOWKv6gq1dP9jR6WT0khiPZ6IOu-R6l8Y9hCK-/pub?gid=0&single=true&output=csv'; // Replace this with your Google Sheets link
 
 // Function to fetch the CSV data and convert it to JSON
 async function fetchData() {
