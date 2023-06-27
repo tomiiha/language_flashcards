@@ -1,5 +1,5 @@
 var currentCard;
-var currentCardIndex = 0; // We initialize it to 0
+var currentCardIndex = 0;
 
 var flashcardContainer = document.querySelector('#flashcard-container');
 var showAnswerButton = document.querySelector('#show-answer');
@@ -8,12 +8,16 @@ var nextButton = document.querySelector('#next');
 var flashcardsData = [];
 
 function showCardFront(index) {
-    currentCardIndex = index; // We assign the value here
+    if (!flashcardsData.length) return;
+
+    currentCardIndex = index;
     currentCard = flashcardsData[index];
     flashcardContainer.innerHTML = currentCard['Front'];
 }
 
 function showCardBack() {
+    if (!flashcardsData.length) return;
+    
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
@@ -24,6 +28,8 @@ function showCardBack() {
 }
 
 function showNextCard() {
+    if (!flashcardsData.length) return;
+
     if (currentCardIndex < flashcardsData.length - 1) {
         currentCardIndex++;
     } else {
@@ -33,6 +39,8 @@ function showNextCard() {
 }
 
 function showPreviousCard() {
+    if (!flashcardsData.length) return;
+
     if (currentCardIndex > 0) {
         currentCardIndex--;
     } else {
@@ -51,5 +59,5 @@ $.get('./data.csv', function(data) {
     var results = Papa.parse(data, {header: true});
     flashcardsData = results['data'];
     flashcardsData = shuffle(flashcardsData);
-    showCardFront(0); // We can call this with 0 since we're starting at the first card
+    showCardFront(0);
 });
