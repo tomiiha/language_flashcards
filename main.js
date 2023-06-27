@@ -10,6 +10,7 @@ function showCardFront(index) {
     if (!flashcardsData.length) return;
 
     currentCardIndex = index;
+    console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
     flashcardContainer.innerHTML = currentCard['Front'];
 }
