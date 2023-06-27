@@ -41,14 +41,13 @@ $(document).ready(function() {
     }
 
     function showCardBack() {
-        if(data && data[currentCard]) {
-            if(data[currentCard].Back){
-                cardBack.find('p').text(data[currentCard].Back);
-            }else{
-                console.log("Error: Back data is not available for currentCard index " + currentCard);
-            }
+        console.log("currentCardIndex:", currentCardIndex); 
+        console.log("currentCard:", currentCard); 
+    
+        if (currentCard['Back'] && currentCard['Back'].trim().length > 0) {
+            flashcardContainer.innerHTML = currentCard['Back'];
         } else {
-            console.log("Error: data is not available or currentCard index is out of range.");
+            throw new Error("Back data is not available for currentCard index " + currentCardIndex);
         }
     }
 
