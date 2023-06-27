@@ -4,7 +4,6 @@ $(document).ready(function() {
     var card = $('.card-content');
     var cardFront = $('.card-front');
     var cardBack = $('.card-back');
-    var note = document.getElementById('note');
     var show = document.getElementById('show');
     var next = document.getElementById('next');
     var prev = document.getElementById('prev');
@@ -36,7 +35,6 @@ $(document).ready(function() {
         if(data && data[currentCard]) {
             cardFront.find('p').text(data[currentCard].Front);
             card.removeClass('flipped');
-            note.textContent = '';
         } else {
             console.log("Error: data is not available or currentCard index is out of range.");
         }
@@ -44,11 +42,10 @@ $(document).ready(function() {
 
     function showCardBack() {
         if(data && data[currentCard]) {
-            if(data[currentCard].Back && data[currentCard].Note){
-                cardBack.find('p').first().text(data[currentCard].Back);
-                note.textContent = 'Note: ' + data[currentCard].Note;
+            if(data[currentCard].Back){
+                cardBack.find('p').text(data[currentCard].Back);
             }else{
-                console.log("Error: Back or Note data is not available for currentCard index " + currentCard);
+                console.log("Error: Back data is not available for currentCard index " + currentCard);
             }
         } else {
             console.log("Error: data is not available or currentCard index is out of range.");
