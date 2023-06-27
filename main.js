@@ -1,77 +1,47 @@
-// Our static list of flashcards
-let flashcards = [];
-let currentCard = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    const url = 'https://docs.google.com/spreadsheets/d/1oY7UJ1zXIKjctRPStg1-l9L8mEkLHsCI_y7xyHcGOy0/gviz/tq?tqx=out:csv';
+    let items = [];
+    let index = 0;
 
-// URL of the published Google Sheet CSV
-const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR8AaBycR0DAZyg2ejm9KpgXFxf9YUVNO78t7m1E5SOWKv6gq1dP9jR6WT0khiPZ6IOu-R6l8Y9hCK-/pub?gid=0&single=true&output=csv'; // Replace this with your Google Sheets link
+    Papa.parse(url, {
+        download: true,
+        header: true,
+        complete: function(results) {
+            items = results.data;
+            items = items.sort(() => Math.random() - 0.5); // Shuffling the array
+            updateCard();
+        }
+    });
 
-// Function to fetch the CSV data and convert it to JSON
-async function fetchData() {
-    const response = await fetch(csvUrl);
-    const csvText = await response.text();
-    const csvData = Papa.parse(csvText, {header: true}); // using Papa Parse library to convert CSV to JSON
-    flashcards = csvData.data.map(card => ({
-        front: card.Front,
-        back: card.Back,
-        note: card.Note
-    }));
-    shuffle(flashcards); // Shuffle the cards
-    updateCard();
-}
+    function updateCard() {
+        const card = document.querySelector('.card');
+        const front = document.querySelector('.card-front p');
+        const back = document.querySelector('.card-back p');
+        const note = document.getElementById('note');
 
-// Fisher-Yates (aka Knuth) Shuffle
-function shuffle(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
+        front.textContent = items[index].Front;
+        back.textContent = items[index].Back;
+        note.textContent = ''; // Clear note when showing the front of the card
 
-    while (0 !== currentIndex) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        card.style.transform = 'rotateY(0deg)';
     }
-}
 
-// Get DOM elements
-const cardContainer = document.querySelector('.card-container');
-const cardFront = document.querySelector('.card-front p');
-const cardBack = document.querySelector('.card-back p');
-const noteElement = document.getElementById('note');
-const prevButton = document.getElementById('prev');
-const showButton = document.getElementById('show');
-const nextButton = document.getElementById('next');
+    function showBack() {
+        const card = document.querySelector('.card');
+        const note = document.getElementById('note');
 
-// Function to update the card display
-function updateCard() {
-    cardFront.innerText = flashcards[currentCard].front;
-    cardBack.innerText = flashcards[currentCard].back;
-    noteElement.innerText = 'Note: ' + flashcards[currentCard].note;
+        note.textContent = "Note: " + items[index].Note;
 
-    // Show the front of the card and hide the back
-    cardFront.style.display = 'block';
-    cardBack.style.display = 'none';
+        card.style.transform = 'rotateY(180deg)';
+    }
 
-    // Disable or enable buttons
-    prevButton.disabled = currentCard === 0;
-    nextButton.disabled = currentCard === flashcards.length - 1;
-}
-
-// Add event listeners to the buttons
-prevButton.addEventListener('click', function() {
-    currentCard--;
-    updateCard();
+    document.getElementById('show').addEventListener('click', showBack);
+    document.getElementById('prev').addEventListener('click', function() {
+        index = index === 0 ? items.length - 1 : index - 1;
+        updateCard();
+    });
+    document.getElementById('next').addEventListener('click', function() {
+        index = (index + 1) % items.length;
+        updateCard();
+    });
 });
-
-showButton.addEventListener('click', function() {
-    cardFront.style.display = 'none';
-    cardBack.style.display = 'block';
-});
-
-nextButton.addEventListener('click', function() {
-    currentCard++;
-    updateCard();
-});
-
-// Fetch data from Google Sheets and set the initial display
-fetchData();
