@@ -5,7 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #FAEBD7;
     color: #333;
     padding: 20px;
     box-sizing: border-box;
@@ -13,6 +13,11 @@ body {
 
 h1 {
     margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 .card-container {
@@ -42,15 +47,7 @@ h1 {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-}
-
-.card .card-front {
-    background-color: #f5ba13;
-}
-
-.card .card-back {
-    background-color: #13f536;
-    transform: rotateY(180deg);
+    background-color: white;
 }
 
 .red-button {
