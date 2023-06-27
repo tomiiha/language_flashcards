@@ -8,7 +8,7 @@ $(document).ready(function() {
     var show = document.getElementById('show');
 
     function getData() {
-        Papa.parse('https://YOUR_USERNAME.github.io/language_flashcards/data.csv', {
+        Papa.parse('data.csv', {
             download: true,
             header: true,
             complete: function(results) {
