@@ -64,3 +64,21 @@ function shuffle(array) {
 
 document.addEventListener('DOMContentLoaded', (event) => {
     flashcardContainer = document.querySelector('.card');
+
+    showAnswerButton = document.querySelector('#show-answer');
+    previousButton = document.querySelector('#prev');
+    nextButton = document.querySelector('#next');
+
+    // Event listeners
+    showAnswerButton.addEventListener('click', showCardBack);
+    previousButton.addEventListener('click', showPreviousCard);
+    nextButton.addEventListener('click', showNextCard);
+
+    // Load flashcards data and show first card front
+    $.get('./data.csv', function(data) {
+        var results = Papa.parse(data, {header: true});
+        flashcardsData = results['data'];
+        flashcardsData = shuffle(flashcardsData);
+        showCardFront(0);
+    });
+});
