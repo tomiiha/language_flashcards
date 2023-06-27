@@ -1,9 +1,10 @@
 var currentCard;
-var currentCardIndex = 0;
-var flashcardContainer;
-var showAnswerButton;
-var previousButton;
-var nextButton;
+var currentCardIndex;
+
+var flashcardContainer = document.querySelector('#flashcard-container');
+var showAnswerButton = document.querySelector('#show-answer');
+var previousButton = document.querySelector('#previous');
+var nextButton = document.querySelector('#next');
 var flashcardsData = [];
 
 function showCardFront(index) {
@@ -16,8 +17,6 @@ function showCardFront(index) {
 }
 
 function showCardBack() {
-    if (!flashcardsData.length) return;
-    
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
@@ -28,8 +27,6 @@ function showCardBack() {
 }
 
 function showNextCard() {
-    if (!flashcardsData.length) return;
-
     if (currentCardIndex < flashcardsData.length - 1) {
         currentCardIndex++;
     } else {
@@ -39,8 +36,6 @@ function showNextCard() {
 }
 
 function showPreviousCard() {
-    if (!flashcardsData.length) return;
-
     if (currentCardIndex > 0) {
         currentCardIndex--;
     } else {
@@ -49,22 +44,17 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
+// Event listeners
+document.addEventListener('DOMContentLoaded', (event) => {
+    showAnswerButton.addEventListener('click', showCardBack);
+    previousButton.addEventListener('click', showPreviousCard);
+    nextButton.addEventListener('click', showNextCard);
+});
+
 // Load flashcards data and show first card front
 $.get('./data.csv', function(data) {
     var results = Papa.parse(data, {header: true});
     flashcardsData = results['data'];
     flashcardsData = shuffle(flashcardsData);
-    showCardFront(0);
-});
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    flashcardContainer = document.querySelector('#flashcard-container');
-    showAnswerButton = document.querySelector('#show-answer');
-    previousButton = document.querySelector('#previous');
-    nextButton = document.querySelector('#next');
-
-    // Event listeners
-    showAnswerButton.addEventListener('click', showCardBack);
-    previousButton.addEventListener('click', showPreviousCard);
-    nextButton.addEventListener('click', showNextCard);
+    showCardFront(0); // We can call this with 0 since we're starting at the first card
 });
