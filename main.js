@@ -1,6 +1,12 @@
 var currentCard;
 var currentCardIndex; // We just declare it here, without assigning a value
 
+var flashcardContainer = document.querySelector('#flashcard-container');
+var showAnswerButton = document.querySelector('#show-answer');
+var previousButton = document.querySelector('#previous');
+var nextButton = document.querySelector('#next');
+var flashcardsData = [];
+
 function showCardFront(index) {
     currentCardIndex = index; // We assign the value here
     currentCard = flashcardsData[index];
