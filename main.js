@@ -13,8 +13,12 @@ $(document).ready(function() {
             header: true,
             complete: function(results) {
                 data = results.data;
+                console.log("Data loaded successfully. Number of entries: " + data.length);
                 shuffleArray(data);
                 showCardFront();
+            },
+            error: function(err, file, inputElem, reason) {
+                console.log("Error occurred while loading data: ", err, reason);
             }
         });
     }
@@ -27,14 +31,22 @@ $(document).ready(function() {
     }
 
     function showCardFront() {
-        cardFront.find('p').text(data[currentCard].Front);
-        card.removeClass('flipped');
-        note.textContent = '';
+        if(data && data[currentCard]) {
+            cardFront.find('p').text(data[currentCard].Front);
+            card.removeClass('flipped');
+            note.textContent = '';
+        } else {
+            console.log("Error: data is not available or currentCard index is out of range.");
+        }
     }
 
     function showCardBack() {
-        cardBack.find('p').first().text(data[currentCard].Back);
-        note.textContent = 'Note: ' + data[currentCard].Note;
+        if(data && data[currentCard]) {
+            cardBack.find('p').first().text(data[currentCard].Back);
+            note.textContent = 'Note: ' + data[currentCard].Note;
+        } else {
+            console.log("Error: data is not available or currentCard index is out of range.");
+        }
     }
 
     $('#next').click(function() {
