@@ -6,9 +6,11 @@ $(document).ready(function() {
     var cardBack = $('.card-back');
     var note = document.getElementById('note');
     var show = document.getElementById('show');
+    var next = document.getElementById('next');
+    var prev = document.getElementById('prev');
 
     function getData() {
-        Papa.parse('https://YOUR_USERNAME.github.io/language_flashcards/data.csv', {
+        Papa.parse('https://tomiiha.github.io/language_flashcards/data.csv', {
             download: true,
             header: true,
             complete: function(results) {
@@ -53,33 +55,26 @@ $(document).ready(function() {
         }
     }
 
-    $('#next').click(function() {
+    show.addEventListener('click', function() {
+        if (!card.hasClass('flipped')) {
+            showCardBack();
+            card.addClass('flipped');
+        }
+    });
+
+    next.addEventListener('click', function() {
         if (currentCard < data.length - 1) {
             currentCard++;
             showCardFront();
         }
     });
 
-    $('#prev').click(function() {
+    prev.addEventListener('click', function() {
         if (currentCard > 0) {
             currentCard--;
             showCardFront();
         }
     });
-
-    card.click(function() {
-        card.toggleClass('flipped');
-        if (card.hasClass('flipped')) {
-            showCardBack();
-        } else {
-            showCardFront();
-        }
-    });
-
-    show.onclick = function() {
-        card.addClass('flipped');
-        showCardBack();
-    }
 
     getData();
 });
