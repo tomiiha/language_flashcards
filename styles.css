@@ -70,13 +70,15 @@ h1 {
 }
 
 button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #575761;
+    display: inline-block;
+    background-color: #0099cc;
     color: white;
+    padding: 10px 24px;
+    margin: 10px 2px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 #show {
