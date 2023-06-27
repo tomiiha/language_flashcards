@@ -41,13 +41,12 @@ $(document).ready(function() {
     }
 
     function showCardBack() {
-        console.log("currentCardIndex:", currentCardIndex); 
         console.log("currentCard:", currentCard); 
     
         if (currentCard['Back'] && currentCard['Back'].trim().length > 0) {
             flashcardContainer.innerHTML = currentCard['Back'];
         } else {
-            throw new Error("Back data is not available for currentCard index " + currentCardIndex);
+            throw new Error("Back data is not available for currentCard.");
         }
     }
 
