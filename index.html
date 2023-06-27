@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Flashcards</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
     <div class="card-container">
         <div class="card">
-            <div class="card-front">
-                <p>Word in new language</p>
-            </div>
-            <div class="card-back">
-                <p>Translation</p>
-            </div>
+            <div class="card-front"><p></p></div>
+            <div class="card-back"><p></p><p id="note"></p></div>
         </div>
+    </div>
+    <div class="buttons">
         <button id="prev">Previous</button>
+        <button id="show">Show</button>
         <button id="next">Next</button>
     </div>
-<script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
+
