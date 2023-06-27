@@ -1,16 +1,25 @@
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-bottom: 20px;
 }
 
 .card-container {
     perspective: 1000px;
     height: 200px;
     width: 300px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 
 .card {
@@ -20,6 +29,7 @@ body {
     transition: transform 0.6s;
     transform-style: preserve-3d;
     cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .card div {
@@ -43,8 +53,29 @@ body {
     transform: rotateY(180deg);
 }
 
+.red-button {
+    background-color: red;
+    color: white;
+    margin-bottom: 20px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
 .buttons {
     display: flex;
     justify-content: space-between;
     width: 300px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #777;
 }
