@@ -44,22 +44,23 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle
+    while (0 !== currentIndex) {
+        // Pick a remaining element
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // Swap it with the current element
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
 document.addEventListener('DOMContentLoaded', (event) => {
     flashcardContainer = document.querySelector('.card');
-    showAnswerButton = document.querySelector('#show-answer');
-    previousButton = document.querySelector('#prev');
-    nextButton = document.querySelector('#next');
-
-    // Event listeners
-    showAnswerButton.addEventListener('click', showCardBack);
-    previousButton.addEventListener('click', showPreviousCard);
-    nextButton.addEventListener('click', showNextCard);
-});
-
-// Load flashcards data and show first card front
-$.get('./data.csv', function(data) {
-    var results = Papa.parse(data, {header: true});
-    flashcardsData = results['data'];
-    flashcardsData = shuffle(flashcardsData);
-    showCardFront(0);
-});
