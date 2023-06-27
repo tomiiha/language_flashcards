@@ -12,17 +12,28 @@ function showCardFront(index) {
     currentCardIndex = index;
     console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
-    flashcardContainer.querySelector('.card-front p').textContent = currentCard['Front'];
+
+    // Hide back content
+    flashcardContainer.querySelector('.card-back').style.display = 'none';
+
+    // Show front content
+    var frontContent = flashcardContainer.querySelector('.card-front p');
+    frontContent.textContent = currentCard['Front'];
+    frontContent.style.display = 'block';
 }
 
 function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        setTimeout(function () {
-            flashcardContainer.querySelector('.card-back p').textContent = currentCard['Back'];
-            flashcardContainer.querySelector('#note').textContent = currentCard['Note'];
-        }, 10); // Delay of 10 milliseconds
+        // Hide front content
+        flashcardContainer.querySelector('.card-front').style.display = 'none';
+
+        // Show back content
+        var backContent = flashcardContainer.querySelector('.card-back');
+        backContent.querySelector('p').textContent = currentCard['Back'];
+        backContent.querySelector('#note').textContent = currentCard['Note'];
+        backContent.style.display = 'block';
     } else {
         throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
     }
@@ -50,37 +61,3 @@ function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     // While there remain elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // Swap it with the current element
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    flashcardContainer = document.querySelector('.card');
-
-    showAnswerButton = document.querySelector('#show-answer');
-    previousButton = document.querySelector('#prev');
-    nextButton = document.querySelector('#next');
-
-    // Event listeners
-    showAnswerButton.addEventListener('click', showCardBack);
-    previousButton.addEventListener('click', showPreviousCard);
-    nextButton.addEventListener('click', showNextCard);
-
-    // Load flashcards data and show first card front
-    $.get('./data.csv', function(data) {
-        var results = Papa.parse(data, {header: true});
-        flashcardsData = results['data'];
-        flashcardsData = shuffle(flashcardsData);
-        showCardFront(0);
-    });
-});
