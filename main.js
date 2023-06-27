@@ -26,14 +26,17 @@ function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        // Hide front content
-        flashcardContainer.querySelector('.card-front').style.display = 'none';
+        // Toggle front and back content with a transition effect
+        var cardFront = flashcardContainer.querySelector('.card-front');
+        var cardBack = flashcardContainer.querySelector('.card-back');
 
-        // Show back content
-        var backContent = flashcardContainer.querySelector('.card-back');
-        backContent.querySelector('p').textContent = currentCard['Back'];
-        backContent.querySelector('#note').textContent = currentCard['Note'];
-        backContent.style.display = 'block';
+        cardFront.style.transform = 'rotateY(180deg)';
+        cardBack.style.transform = 'rotateY(0deg)';
+
+        setTimeout(function () {
+            cardFront.style.display = 'none';
+            cardBack.style.display = 'block';
+        }, 500); // Delay of 500 milliseconds for the transition effect
     } else {
         throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
     }
