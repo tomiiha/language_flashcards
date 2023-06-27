@@ -1,10 +1,9 @@
 var currentCard;
 var currentCardIndex = 0;
-
-var flashcardContainer = document.querySelector('#flashcard-container');
-var showAnswerButton = document.querySelector('#show-answer');
-var previousButton = document.querySelector('#previous');
-var nextButton = document.querySelector('#next');
+var flashcardContainer;
+var showAnswerButton;
+var previousButton;
+var nextButton;
 var flashcardsData = [];
 
 function showCardFront(index) {
@@ -49,15 +48,22 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
-// Event listeners
-showAnswerButton.addEventListener('click', showCardBack);
-previousButton.addEventListener('click', showPreviousCard);
-nextButton.addEventListener('click', showNextCard);
-
 // Load flashcards data and show first card front
 $.get('./data.csv', function(data) {
     var results = Papa.parse(data, {header: true});
     flashcardsData = results['data'];
     flashcardsData = shuffle(flashcardsData);
     showCardFront(0);
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    flashcardContainer = document.querySelector('#flashcard-container');
+    showAnswerButton = document.querySelector('#show-answer');
+    previousButton = document.querySelector('#previous');
+    nextButton = document.querySelector('#next');
+
+    // Event listeners
+    showAnswerButton.addEventListener('click', showCardBack);
+    previousButton.addEventListener('click', showPreviousCard);
+    nextButton.addEventListener('click', showNextCard);
 });
