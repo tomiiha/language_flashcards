@@ -1,47 +1,69 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const url = 'https://docs.google.com/spreadsheets/d/1oY7UJ1zXIKjctRPStg1-l9L8mEkLHsCI_y7xyHcGOy0/gviz/tq?tqx=out:csv';
-    let items = [];
-    let index = 0;
+$(document).ready(function() {
+    var data;
+    var currentCard = 0;
+    var card = $('.card-content');
+    var cardFront = $('.card-front');
+    var cardBack = $('.card-back');
+    var note = document.getElementById('note');
+    var show = document.getElementById('show');
 
-    Papa.parse(url, {
-        download: true,
-        header: true,
-        complete: function(results) {
-            items = results.data;
-            items = items.sort(() => Math.random() - 0.5); // Shuffling the array
-            updateCard();
+    function getData() {
+        Papa.parse('https://docs.google.com/spreadsheets/d/1oY7UJ1zXIKjctRPStg1-l9L8mEkLHsCI_y7xyHcGOy0/gviz/tq?tqx=out:csv', {
+            download: true,
+            header: true,
+            complete: function(results) {
+                data = results.data;
+                shuffleArray(data);
+                showCardFront();
+            }
+        });
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function showCardFront() {
+        cardFront.find('p').text(data[currentCard].Front);
+        card.removeClass('flipped');
+        note.textContent = '';
+    }
+
+    function showCardBack() {
+        cardBack.find('p').first().text(data[currentCard].Back);
+        note.textContent = 'Note: ' + data[currentCard].Note;
+    }
+
+    $('#next').click(function() {
+        if (currentCard < data.length - 1) {
+            currentCard++;
+            showCardFront();
         }
     });
 
-    function updateCard() {
-        const card = document.querySelector('.card');
-        const front = document.querySelector('.card-front p');
-        const back = document.querySelector('.card-back p');
-        const note = document.getElementById('note');
+    $('#prev').click(function() {
+        if (currentCard > 0) {
+            currentCard--;
+            showCardFront();
+        }
+    });
 
-        front.textContent = items[index].Front;
-        back.textContent = items[index].Back;
-        note.textContent = ''; // Clear note when showing the front of the card
+    card.click(function() {
+        card.toggleClass('flipped');
+        if (card.hasClass('flipped')) {
+            showCardBack();
+        } else {
+            showCardFront();
+        }
+    });
 
-        card.style.transform = 'rotateY(0deg)';
+    show.onclick = function() {
+        card.addClass('flipped');
+        showCardBack();
     }
 
-    function showBack() {
-        const card = document.querySelector('.card');
-        const note = document.getElementById('note');
-
-        note.textContent = "Note: " + items[index].Note;
-
-        card.style.transform = 'rotateY(180deg)';
-    }
-
-    document.getElementById('show').addEventListener('click', showBack);
-    document.getElementById('prev').addEventListener('click', function() {
-        index = index === 0 ? items.length - 1 : index - 1;
-        updateCard();
-    });
-    document.getElementById('next').addEventListener('click', function() {
-        index = (index + 1) % items.length;
-        updateCard();
-    });
+    getData();
 });
