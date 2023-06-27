@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vietnamese Flashcards</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h1>Vietnamese Flashcards</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <div class="card-container">
-        <div class="card">
-            <div class="card-front"><p></p></div>
-            <div class="card-back"><p></p><p id="note"></p></div>
+    <div class="container">
+        <h1>Vietnamese Flashcards</h1>
+        <p class="instructions">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet lacus et ipsum faucibus scelerisque. Integer dui.</p>
+        <div class="card" onclick="showBack()">
+            <div class="card-content">
+                <div class="card-front">
+                    <p></p>
+                </div>
+                <div class="card-back">
+                    <p></p>
+                    <p id="note"></p>
+                </div>
+            </div>
+        </div>
+        <button id="show">Show Answer</button>
+        <div class="buttons">
+            <button id="prev">Previous</button>
+            <button id="next">Next</button>
         </div>
     </div>
-    <button id="show" class="red-button">Show Answer</button>
-    <div class="buttons">
-        <button id="prev">Previous</button>
-        <button id="next">Next</button>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
