@@ -1,7 +1,8 @@
 var currentCard;
-var currentCardIndex = 0; // Define currentCardIndex variable
+var currentCardIndex; // We just declare it here, without assigning a value
 
 function showCardFront(index) {
+    currentCardIndex = index; // We assign the value here
     currentCard = flashcardsData[index];
     flashcardContainer.innerHTML = currentCard['Front'];
 }
@@ -12,24 +13,24 @@ function showCardBack() {
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
         flashcardContainer.innerHTML = currentCard['Back'];
     } else {
-        throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`); // Use currentCardIndex here
+        throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
     }
 }
 
 function showNextCard() {
     if (currentCardIndex < flashcardsData.length - 1) {
-        currentCardIndex++; // Increment currentCardIndex when showing next card
+        currentCardIndex++;
     } else {
-        currentCardIndex = 0; // Reset currentCardIndex when reaching end of flashcardsData
+        currentCardIndex = 0;
     }
     showCardFront(currentCardIndex);
 }
 
 function showPreviousCard() {
     if (currentCardIndex > 0) {
-        currentCardIndex--; // Decrement currentCardIndex when showing previous card
+        currentCardIndex--;
     } else {
-        currentCardIndex = flashcardsData.length - 1; // Set currentCardIndex to last index when reaching start of flashcardsData
+        currentCardIndex = flashcardsData.length - 1;
     }
     showCardFront(currentCardIndex);
 }
@@ -44,5 +45,5 @@ $.get('./data.csv', function(data) {
     var results = Papa.parse(data, {header: true});
     flashcardsData = results['data'];
     flashcardsData = shuffle(flashcardsData);
-    showCardFront(currentCardIndex);
+    showCardFront(0); // We can call this with 0 since we're starting at the first card
 });
