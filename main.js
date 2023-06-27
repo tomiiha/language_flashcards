@@ -30,7 +30,7 @@ function showCardBack() {
         var cardFront = flashcardContainer.querySelector('.card-front');
         var cardBack = flashcardContainer.querySelector('.card-back');
 
-        cardFront.style.transform = 'rotateY(180deg)';
+        cardFront.style.transform = 'rotateY(-180deg)';
         cardBack.style.transform = 'rotateY(0deg)';
 
         setTimeout(function () {
