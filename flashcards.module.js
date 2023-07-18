@@ -1,3 +1,5 @@
+// flashcards.module.js
+
 import Papa from 'papaparse';
 
 var flashcardsData = [];
@@ -51,4 +53,22 @@ $(document).ready(function() {
     // Add event listener to show answer button
     var showAnswerButton = document.querySelector('#show-answer');
     showAnswerButton.addEventListener('click', showCardBack);
+
+    // Add event listener to previous button
+    var prevButton = document.querySelector('#prev');
+    prevButton.addEventListener('click', function() {
+        if (currentCardIndex > 0) {
+            currentCardIndex--;
+            showCardFront(currentCardIndex);
+        }
+    });
+
+    // Add event listener to next button
+    var nextButton = document.querySelector('#next');
+    nextButton.addEventListener('click', function() {
+        if (currentCardIndex < flashcardsData.length - 1) {
+            currentCardIndex++;
+            showCardFront(currentCardIndex);
+        }
+    });
 });
