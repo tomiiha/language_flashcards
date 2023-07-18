@@ -32,12 +32,15 @@ function showCardFront(index) {
     currentCard = flashcardsData[index];
 
     // Hide back content
-    flashcardContainer.querySelector('.card-back').style.display = 'none';
+    var cardBack = flashcardContainer.querySelector('.card-back');
+    cardBack.classList.replace('active', 'inactive');
 
     // Show front content
     var frontContent = flashcardContainer.querySelector('.card-front p');
     frontContent.textContent = currentCard['Front'];
-    frontContent.style.display = 'block';
+    
+    var cardFront = flashcardContainer.querySelector('.card-front');
+    cardFront.classList.replace('inactive', 'active');
 }
 
 function showCardBack() {
@@ -47,19 +50,13 @@ function showCardBack() {
         // Populate back content
         var backContent = flashcardContainer.querySelector('.card-back p');
         backContent.textContent = currentCard['Back'];
-        backContent.style.display = 'block';
-
-        // Toggle front and back content with a transition effect
-        var cardFront = flashcardContainer.querySelector('.card-front');
+        
         var cardBack = flashcardContainer.querySelector('.card-back');
+        cardBack.classList.replace('inactive', 'active');
 
-        cardFront.style.transform = 'rotateY(-180deg)';
-        cardBack.style.transform = 'rotateY(0deg)';
-
-        setTimeout(function () {
-            cardFront.style.display = 'none';
-            cardBack.style.display = 'block';
-        }, 500); // Delay of 500 milliseconds for the transition effect
+        // Hide front content
+        var cardFront = flashcardContainer.querySelector('.card-front');
+        cardFront.classList.replace('active', 'inactive');
     } else {
         // Default value for Back property
         currentCard['Back'] = '';
@@ -68,7 +65,7 @@ function showCardBack() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    flashcardContainer = document.querySelector('.card'); // Or '.container', depending on your HTML
+    flashcardContainer = document.querySelector('.card');
 
     fetch('./data.csv')
         .then(response => response.text())
