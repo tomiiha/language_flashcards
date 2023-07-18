@@ -56,11 +56,17 @@ function showCardBack() {
         var cardBack = flashcardContainer.querySelector('.card-back');
         cardBack.style.display = 'block';
     } else {
-        // Default value for Back property
-        currentCard['Back'] = '';
-        showCardBack();
+        // Default value for Back property if not provided
+        var backContent = flashcardContainer.querySelector('.card-back p');
+        backContent.textContent = 'No answer provided';
+        var cardBack = flashcardContainer.querySelector('.card-back');
+        cardBack.style.display = 'block';
+        
+        var cardFront = flashcardContainer.querySelector('.card-front');
+        cardFront.style.display = 'none';
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     flashcardContainer = document.querySelector('.card');
