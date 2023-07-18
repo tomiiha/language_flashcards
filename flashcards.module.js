@@ -31,32 +31,30 @@ function showCardFront(index) {
     console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
 
+    // Hide back content
+    var cardBack = flashcardContainer.querySelector('.card-back');
+    cardBack.style.display = 'none';
+
     // Show front content
     var frontContent = flashcardContainer.querySelector('.card-front p');
     frontContent.textContent = currentCard['Front'];
-    
     var cardFront = flashcardContainer.querySelector('.card-front');
-    cardFront.classList.replace('inactive', 'active');
-
-    // Hide back content
-    var cardBack = flashcardContainer.querySelector('.card-back');
-    cardBack.classList.replace('active', 'inactive');
+    cardFront.style.display = 'block';
 }
 
 function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        // Populate back content
-        var backContent = flashcardContainer.querySelector('.card-back p');
-        backContent.textContent = currentCard['Back'];
-        
-        var cardBack = flashcardContainer.querySelector('.card-back');
-        cardBack.classList.replace('inactive', 'active');
-
         // Hide front content
         var cardFront = flashcardContainer.querySelector('.card-front');
-        cardFront.classList.replace('active', 'inactive');
+        cardFront.style.display = 'none';
+
+        // Show back content
+        var backContent = flashcardContainer.querySelector('.card-back p');
+        backContent.textContent = currentCard['Back'];
+        var cardBack = flashcardContainer.querySelector('.card-back');
+        cardBack.style.display = 'block';
     } else {
         // Default value for Back property
         currentCard['Back'] = '';
