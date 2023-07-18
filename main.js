@@ -1,3 +1,5 @@
+import Papa from 'papaparse';
+
 var flashcardsData = [];
 
 function showCardFront(index) {
@@ -38,7 +40,6 @@ function showCardBack() {
     }
 }
 
-// Load flashcards data and show first card front
 $(document).ready(function() {
     $.get('./data.csv', function(data) {
         var results = Papa.parse(data, {header: true});
