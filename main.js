@@ -44,23 +44,8 @@ function showCardBack() {
     }
 }
 
-function showNextCard() {
-    if (currentCardIndex < flashcardsData.length - 1) {
-        currentCardIndex++;
-    } else {
-        currentCardIndex = 0;
-    }
-    showCardFront(currentCardIndex);
-}
-
-function showPreviousCard() {
-    if (currentCardIndex > 0) {
-        currentCardIndex--;
-    } else {
-        currentCardIndex = flashcardsData.length - 1;
-    }
-    showCardFront(currentCardIndex);
-}
+// Add event listener to show answer button
+showAnswerButton.addEventListener('click', showCardBack);
 
 document.addEventListener('DOMContentLoaded', (event) => {
     flashcardContainer = document.querySelector('.card');
@@ -68,17 +53,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     previousButton = document.querySelector('#prev');
     nextButton = document.querySelector('#next');
 
-    // Event listeners
-    showAnswerButton.addEventListener('click', showCardBack);
-    previousButton.addEventListener('click', showPreviousCard);
-    nextButton.addEventListener('click', showNextCard);
-
     // Load flashcards data and show first card front
     $.get('./data.csv', function(data) {
         var results = Papa.parse(data, {header: true});
         flashcardsData = results['data'];
         flashcardsData.shuffle();
-        currentCard = flashcardsData[0];
         showCardFront(0);
     });
 });
