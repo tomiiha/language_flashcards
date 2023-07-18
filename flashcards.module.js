@@ -2,6 +2,7 @@
 
 var flashcardsData = [];
 var currentCardIndex;
+var currentCard;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
