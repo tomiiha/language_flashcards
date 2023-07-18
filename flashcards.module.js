@@ -44,6 +44,11 @@ function showCardBack() {
     console.log("currentCard:", currentCard);
 
     if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
+        // Populate back content
+        var backContent = flashcardContainer.querySelector('.card-back p');
+        backContent.textContent = currentCard['Back'];
+        backContent.style.display = 'block';
+
         // Toggle front and back content with a transition effect
         var cardFront = flashcardContainer.querySelector('.card-front');
         var cardBack = flashcardContainer.querySelector('.card-back');
@@ -58,7 +63,6 @@ function showCardBack() {
     } else {
         // Default value for Back property
         currentCard['Back'] = '';
-        // This is a recursive call. Be careful with this.
         showCardBack();
     }
 }
