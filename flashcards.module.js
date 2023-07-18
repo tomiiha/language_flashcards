@@ -31,16 +31,16 @@ function showCardFront(index) {
     console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
 
-    // Hide back content
-    var cardBack = flashcardContainer.querySelector('.card-back');
-    cardBack.classList.replace('active', 'inactive');
-
     // Show front content
     var frontContent = flashcardContainer.querySelector('.card-front p');
     frontContent.textContent = currentCard['Front'];
     
     var cardFront = flashcardContainer.querySelector('.card-front');
     cardFront.classList.replace('inactive', 'active');
+
+    // Hide back content
+    var cardBack = flashcardContainer.querySelector('.card-back');
+    cardBack.classList.replace('active', 'inactive');
 }
 
 function showCardBack() {
