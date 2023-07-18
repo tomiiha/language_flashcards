@@ -63,7 +63,7 @@ function showPreviousCard() {
 }
 
 function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
+    return array.shuffle();
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -83,3 +83,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         flashcardsData = results['data'];
         flashcardsData = shuffle(flashcardsData);
         showCardFront(0);
+    });
+});
