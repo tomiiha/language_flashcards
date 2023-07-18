@@ -40,13 +40,15 @@ function showCardBack() {
     }
 }
 
-$(document).ready(function() {
-    $.get('./data.csv', function(data) {
-        var results = Papa.parse(data, {header: true});
-        flashcardsData = results['data'];
-        flashcardsData.shuffle();
-        showCardFront(0);
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('./data.csv')
+        .then(response => response.text())
+        .then(data => {
+            var results = Papa.parse(data, {header: true});
+            flashcardsData = results['data'];
+            flashcardsData.shuffle();
+            showCardFront(0);
+        });
 
     // Add event listener to show answer button
     var showAnswerButton = document.querySelector('#show-answer');
