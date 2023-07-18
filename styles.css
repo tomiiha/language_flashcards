@@ -88,3 +88,8 @@ button {
 #show-answer {
     background-color: red;
 }
+
+.card-content > button {
+    display: flex;
+    justify-content: space-between;
+}
