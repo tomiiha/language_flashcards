@@ -3,6 +3,7 @@
 var flashcardsData = [];
 var currentCardIndex;
 var currentCard;
+var flashcardContainer;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -57,11 +58,14 @@ function showCardBack() {
     } else {
         // Default value for Back property
         currentCard['Back'] = '';
+        // This is a recursive call. Be careful with this.
         showCardBack();
     }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    flashcardContainer = document.querySelector('.card'); // Or '.container', depending on your HTML
+
     fetch('./data.csv')
         .then(response => response.text())
         .then(data => {
