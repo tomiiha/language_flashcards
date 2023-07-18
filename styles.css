@@ -37,14 +37,13 @@ h1 {
     height: 100%;
     width: 100%;
     position: absolute;
-    transition: transform 1s, opacity 1s;
-    transform-style: preserve-3d;
+    transition: opacity 0.5s;
     cursor: pointer;
     border: 1px solid #A2D2FF;
     box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
     border-radius: 10px;
     overflow: hidden;
-    background-color: #A2D2FF;
+    background-color: #FFFFFF;
 }
 
 .card-front,
@@ -52,18 +51,21 @@ h1 {
     height: 100%;
     width: 100%;
     position: absolute;
-    backface-visibility: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
-    opacity: 1;
+    opacity: 0;
+}
+
+.card-front p,
+.card-back p {
+    color: #333333;
 }
 
 .card-back {
-    transform: rotateY(180deg);
     opacity: 0;
 }
 
@@ -94,10 +96,12 @@ button#show-answer:hover {
 
 .active {
     opacity: 1;
+    z-index: 2;
 }
 
 .inactive {
     opacity: 0;
+    z-index: 1;
 }
 
 .card-content > button {
