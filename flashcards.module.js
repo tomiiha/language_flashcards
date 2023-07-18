@@ -1,6 +1,7 @@
 // flashcards.module.js
 
 var flashcardsData = [];
+var currentCardIndex;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
