@@ -62,10 +62,6 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
-function shuffle() {
-    return this.shuffle();
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
     flashcardContainer = document.querySelector('.card');
     showAnswerButton = document.querySelector('#show-answer');
