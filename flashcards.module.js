@@ -1,9 +1,9 @@
 // flashcards.module.js
 
 var flashcardsData = [];
+var previousCards = [];
 var currentCardIndex;
 var currentCard;
-var flashcardContainer;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -24,72 +24,41 @@ function shuffle(array) {
     return array;
 }
 
-function showCardFront(index) {
+function showCard(index, isBack = false) {
     if (!flashcardsData.length) return;
 
     currentCardIndex = index;
-    console.log("In showCardFront, currentCardIndex:", currentCardIndex);
     currentCard = flashcardsData[index];
 
-    // Hide back content
-    var cardBack = flashcardContainer.querySelector('.card-back');
-    cardBack.style.display = 'none';
-
-    // Show front content
-    var frontContent = flashcardContainer.querySelector('.card-front p');
-    frontContent.textContent = currentCard['Front'];
-    var cardFront = flashcardContainer.querySelector('.card-front');
-    cardFront.style.display = 'block';
+    // Show card content
+    var cardContent = document.querySelector('.card .card-content p');
+    cardContent.textContent = isBack ? currentCard['Back'] : currentCard['Front'];
 }
-
-function showCardBack() {
-    console.log("currentCard:", currentCard);
-
-    if (currentCard && currentCard['Back'] && currentCard['Back'].trim().length > 0) {
-        // Hide front content
-        var cardFront = flashcardContainer.querySelector('.card-front');
-        cardFront.style.display = 'none';
-
-        // Show back content
-        var backContent = flashcardContainer.querySelector('.card-back p');
-        backContent.textContent = currentCard['Back'];
-        var cardBack = flashcardContainer.querySelector('.card-back');
-        cardBack.style.display = 'block';
-    } else {
-        // Default value for Back property if not provided
-        var backContent = flashcardContainer.querySelector('.card-back p');
-        backContent.textContent = 'No answer provided';
-        var cardBack = flashcardContainer.querySelector('.card-back');
-        cardBack.style.display = 'block';
-        
-        var cardFront = flashcardContainer.querySelector('.card-front');
-        cardFront.style.display = 'none';
-    }
-}
-
 
 document.addEventListener("DOMContentLoaded", function() {
-    flashcardContainer = document.querySelector('.card');
-
     fetch('./data.csv')
         .then(response => response.text())
         .then(data => {
             var results = Papa.parse(data, {header: true});
-            flashcardsData = results['data'];
-            flashcardsData = shuffle(flashcardsData);
-            showCardFront(0);
+            flashcardsData = shuffle(results['data']);
+            previousCards.push(flashcardsData[0]);
+            showCard(0);
         });
 
     // Add event listener to show answer button
     var showAnswerButton = document.querySelector('#show-answer');
-    showAnswerButton.addEventListener('click', showCardBack);
+    showAnswerButton.addEventListener('click', function() {
+        showCard(currentCardIndex, true);
+    });
 
     // Add event listener to previous button
     var prevButton = document.querySelector('#prev');
     prevButton.addEventListener('click', function() {
-        if (currentCardIndex > 0) {
-            currentCardIndex--;
-            showCardFront(currentCardIndex);
+        if (previousCards.length > 1) {
+            previousCards.pop();
+            var previousCard = previousCards[previousCards.length - 1];
+            currentCardIndex = flashcardsData.indexOf(previousCard);
+            showCard(currentCardIndex);
         }
     });
 
@@ -97,8 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var nextButton = document.querySelector('#next');
     nextButton.addEventListener('click', function() {
         if (currentCardIndex < flashcardsData.length - 1) {
-            currentCardIndex++;
-            showCardFront(currentCardIndex);
+            var nextCardIndex = Math.floor(Math.random() * flashcardsData.length);
+            while (nextCardIndex === currentCardIndex) {
+                nextCardIndex = Math.floor(Math.random() * flashcardsData.length);
+            }
+            previousCards.push(flashcardsData[nextCardIndex]);
+            showCard(nextCardIndex);
         }
     });
 });
