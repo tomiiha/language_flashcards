@@ -38,7 +38,9 @@ function showCardBack() {
             cardBack.style.display = 'block';
         }, 500); // Delay of 500 milliseconds for the transition effect
     } else {
-        throw new Error(`Back data is not available for currentCard index ${currentCardIndex}.`);
+        // Default value for Back property
+        currentCard['Back'] = '';
+        showCardBack();
     }
 }
 
@@ -61,21 +63,7 @@ function showPreviousCard() {
 }
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle
-    while (0 !== currentIndex) {
-        // Pick a remaining element
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // Swap it with the current element
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
+    return array.sort(() => Math.random() - 0.5);
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -95,5 +83,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
         flashcardsData = results['data'];
         flashcardsData = shuffle(flashcardsData);
         showCardFront(0);
-    });
-});
