@@ -1,7 +1,5 @@
 // flashcards.module.js
 
-import Papa from 'papaparse';
-
 var flashcardsData = [];
 
 function showCardFront(index) {
