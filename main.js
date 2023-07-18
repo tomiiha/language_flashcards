@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     $.get('./data.csv', function(data) {
         var results = Papa.parse(data, {header: true});
         flashcardsData = results['data'];
+        flashcardsData.shuffle();
         currentCard = flashcardsData[0];
         showCardFront(0);
     });
