@@ -62,8 +62,8 @@ function showPreviousCard() {
     showCardFront(currentCardIndex);
 }
 
-function shuffle(array) {
-    return array.shuffle();
+function shuffle() {
+    return this.shuffle();
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     $.get('./data.csv', function(data) {
         var results = Papa.parse(data, {header: true});
         flashcardsData = results['data'];
-        flashcardsData = shuffle(flashcardsData);
+        flashcardsData = flashcardsData.shuffle();
         showCardFront(0);
     });
 });
