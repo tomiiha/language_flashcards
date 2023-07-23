@@ -36,7 +36,7 @@ function showCard(index, isBack = false) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('./data.csv')
+    fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vR8AaBycR0DAZyg2ejm9KpgXFxf9YUVNO78t7m1E5SOWKv6gq1dP9jR6WT0khiPZ6IOu-R6l8Y9hCK-/pub?output=csv')
         .then(response => response.text())
         .then(data => {
             var results = Papa.parse(data, {header: true});
