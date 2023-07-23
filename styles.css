@@ -7,6 +7,7 @@ body {
     background-color: #F8F4E3;
     margin: 0;
     padding: 0;
+    position: relative; /* ensure the footer positions correctly */
 }
 
 .container {
@@ -119,6 +120,15 @@ button:active {
     display: flex;
     justify-content: space-around;
     width: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    font-size: 10px;
+    color: #575761; /* this color matches the h1 color */
 }
 
 @media (max-width: 600px) {
