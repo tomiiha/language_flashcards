@@ -24,7 +24,7 @@ h1 {
 }
 
 .collapsible {
-    background-color: #f1f1f1;
+    background-color: #b8b8b8; /* darker grey */
     color: #444;
     cursor: pointer;
     padding: 10px;
@@ -98,7 +98,7 @@ button {
     cursor: pointer;
     font-size: 20px;
     transition: transform 0.3s ease;
-    width: 120px; /* increase the button width */
+    width: 100%; /* increase the button width */
     text-align: center;
 }
 
