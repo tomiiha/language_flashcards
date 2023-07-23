@@ -56,7 +56,7 @@ h1 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
+    background-color: #F8F4E3; /* same as the body background color */
 }
 
 .card {
