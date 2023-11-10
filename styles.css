@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background-color: #F8F4E3;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
-    position: relative; /* ensure the footer positions correctly */
+    position: relative;
 }
 
 .container {
@@ -18,38 +20,33 @@ body {
     width: 90%;
     max-width: 400px;
     margin: 50px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
 }
 
 h1 {
     color: #575761;
+    font-weight: 700;
 }
 
 .collapsible {
-    background-color: #b8b8b8; /* darker grey */
-    color: #444;
+    background-color: #007BFF;
+    color: white;
     cursor: pointer;
     padding: 10px;
     width: 100%;
     border: none;
+    border-radius: 5px;
     text-align: left;
     outline: none;
     font-size: 15px;
+    margin-bottom: 5px;
 }
 
 .active, .collapsible:hover {
-    background-color: #ccc;
-}
-
-.collapsible:after {
-    content: '\002B';
-    color: #777;
-    font-weight: bold;
-    float: right;
-    margin-left: 5px;
-}
-
-.active:after {
-    content: "\2212";
+    background-color: #0056b3;
 }
 
 .content {
@@ -57,7 +54,7 @@ h1 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: #F8F4E3; /* same as the body background color */
+    background-color: #f5f5f5;
 }
 
 .card {
@@ -65,13 +62,14 @@ h1 {
     height: 200px;
     position: relative;
     perspective: 1000px;
-    border: 1px solid black;
+    border: 1px solid #ddd;
     background-color: white;
     padding: 10px;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 10px;
 }
 
 .card-content {
@@ -92,48 +90,66 @@ h1 {
 button {
     display: inline-block;
     color: white;
-    padding: 8px 20px; 
-    margin: 2px; 
+    padding: 8px 20px;
+    margin: 5px 2px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; 
-    transition: transform 0.3s ease;
+    font-size: 18px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
     width: 100%;
     text-align: center;
 }
 
-button:active {
-    transform: scale(0.9);
-}
-
 #show-answer {
     background-color: red;
-    width: 100%;
+    margin-bottom: 5px;
+}
+
+#show-answer:hover {
+    background-color: darkred;
 }
 
 #prev, #next {
     background-color: #0099cc;
 }
 
+#prev:hover, #next:hover {
+    background-color: #0077a2;
+}
+
+#reverse {
+    background-color: green;
+}
+
+#reverse:hover {
+    background-color: darkgreen;
+}
+
 .button-container {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-bottom: 5px; /* Further reduced margin for a tighter layout */
+    margin-bottom: 5px;
+    flex-direction: row;
 }
 
-#reverse {
-    background-color: green; /* Style for Reverse button */
+.button-container button {
+    flex: 1;
+    margin: 0 5px;
 }
 
 .footer {
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 5px;
+    padding: 10px;
     font-size: 10px;
-    color: #575761; /* this color matches the h1 color */
+    color: #575761;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    border-top: 1px solid #ddd;
 }
 
 @media (max-width: 600px) {
