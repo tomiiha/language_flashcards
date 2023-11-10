@@ -1,9 +1,8 @@
-// flashcards.module.js
-
 var flashcardsData = [];
 var previousCards = [];
 var currentCardIndex;
 var currentCard;
+var isReversed = false; // New variable for reverse mode
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -30,9 +29,8 @@ function showCard(index, isBack = false) {
     currentCardIndex = index;
     currentCard = flashcardsData[index];
 
-    // Show card content
     var cardContent = document.querySelector('.card .card-content p');
-    cardContent.textContent = isBack ? currentCard['Back'] : currentCard['Front'];
+    cardContent.textContent = (isReversed !== isBack) ? currentCard['Back'] : currentCard['Front'];
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -45,13 +43,11 @@ document.addEventListener("DOMContentLoaded", function() {
             showCard(0);
         });
 
-    // Add event listener to show answer button
     var showAnswerButton = document.querySelector('#show-answer');
     showAnswerButton.addEventListener('click', function() {
         showCard(currentCardIndex, true);
     });
 
-    // Add event listener to previous button
     var prevButton = document.querySelector('#prev');
     prevButton.addEventListener('click', function() {
         if (previousCards.length > 1) {
@@ -62,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Add event listener to next button
     var nextButton = document.querySelector('#next');
     nextButton.addEventListener('click', function() {
         if (currentCardIndex < flashcardsData.length - 1) {
@@ -73,6 +68,13 @@ document.addEventListener("DOMContentLoaded", function() {
             previousCards.push(flashcardsData[nextCardIndex]);
             showCard(nextCardIndex);
         }
+    });
+
+    // Reverse button event listener
+    var reverseButton = document.querySelector('#reverse');
+    reverseButton.addEventListener('click', function() {
+        isReversed = !isReversed;
+        showCard(currentCardIndex);
     });
 
     // Collapsible sections code
