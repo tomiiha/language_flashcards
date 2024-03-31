@@ -2,19 +2,16 @@ var flashcardsData = [];
 var previousCards = [];
 var currentCardIndex;
 var currentCard;
-var isReversed = false; // New variable for reverse mode
+var isReversed = false;
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
-    // While there remain elements to shuffle...
     while (0 !== currentIndex) {
 
-        // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
-        // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
@@ -70,14 +67,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Reverse button event listener
     var reverseButton = document.querySelector('#reverse');
     reverseButton.addEventListener('click', function() {
         isReversed = !isReversed;
+        var languageDirectionP = document.querySelector('#language-direction');
+        languageDirectionP.textContent = isReversed ? 'Vietnamese-to-English' : 'English-to-Vietnamese';
         showCard(currentCardIndex);
     });
 
-    // Collapsible sections code
     var coll = document.getElementsByClassName("collapsible");
     var i;
 
