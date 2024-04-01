@@ -10,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
+    overflow-x: hidden;
 }
 
 .container {
@@ -144,6 +145,7 @@ button {
     position: absolute;
     bottom: 0;
     left: 0;
+    right: 0;
     padding: 10px;
     font-size: 10px;
     color: #575761;
